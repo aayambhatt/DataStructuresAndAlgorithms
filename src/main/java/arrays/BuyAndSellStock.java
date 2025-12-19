@@ -1,17 +1,28 @@
 package arrays;
 
 public class BuyAndSellStock {
-    public int maxProfit(int[] prices) {
+    // Brute Force
+    // O(n^2)
+    public int maxProfitBrute(int[] prices) {
         int maxProfit = 0;
-        int minPrice = prices[0];
-        for(int i = 0 ; i<prices.length ; i++){
-            if(prices[i] < minPrice){
-                minPrice = prices[i];
+        for (int i = 0; i < prices.length; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
             }
-            int profit = prices[i] - minPrice;
-            maxProfit = Math.max(maxProfit, profit);
         }
+        return maxProfit;
+    }
 
+    // Optimal
+    // O(n)
+    public int maxProfitOptimal(int[] prices) {
+        int minPrice = prices[0];
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price);
+            maxProfit = Math.max(maxProfit, price - minPrice);
+        }
         return maxProfit;
     }
 }
